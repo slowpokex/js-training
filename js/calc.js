@@ -45,5 +45,5 @@ var element = document.getElementById("calculate");
 element.addEventListener('click', function () {
     var x = document.getElementById("first").value;
     var y = document.getElementById("second").value;
-    document.getElementById("result").innerHTML = operations(calc, x, y)
+    document.getElementById("result").innerHTML = operations(calc, parseInt(x), parseInt(y))
 })
