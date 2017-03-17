@@ -2,34 +2,21 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-		<title>Task-1 UX Development</title>
+		<title>UX Development</title>
 		<link rel="stylesheet" href="css/main.css"/>
 	</head>
 	<body>
 		<div class="header">
-			<div class="head_element">Welcome page</div>
-			<div class="head_element">About</div>
-			<div class="head_element">Contacts</div>
+			<h1>Calculator</h1>
 		</div>
-		<div class="content">
-			<div class="blocks">
-				<div class="block">
-
-				</div>
-				<div class="block">
-
-				</div>
-				<div class="block">
-
-				</div>
-				<div class="block">
-
-				</div>
-			</div>
+		<h3>Please input some parameter:</h3>
+		<div id="calculator" class="content">
+			x:<input type="text" id="first"/>
+			y:<input type="text" id="second"/>
+			<input type="button" id="calculate" value="Calculate"/><br/>
+			<div id="result"></div>
 		</div>
-		<div class="footer">
-			<div class="footer_element"></div>
-			<div class="footer_element"></div>
-		</div>
+		<div class="footer"></div>
+		<script src="js/calc.js"></script>
 	</body>
 </html>
