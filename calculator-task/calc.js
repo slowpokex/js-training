@@ -1,17 +1,17 @@
 function addition(a,b) {
-	return a + b
+  return a + b
 }
 function subtraction(a,b) {
   return a - b
 }
 function multiple(a,b) {
-	return a * b
+  return a * b
 }
 function divide(a,b) {
-	return a / b
+  return a / b
 }
 function integerDivide(a,b) {
-	return Math.trunc(a / b);
+  return Math.trunc(a / b);
 }
 console.log(addition());
 console.log(addition(1));
