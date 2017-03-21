@@ -13,6 +13,7 @@ function divide(a,b) {
 function integerDivide(a,b) {
 	return Math.trunc(a / b);
 }
+
 console.log(addition());
 console.log(addition(1));
 console.log(addition(10, 10));
