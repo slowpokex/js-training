@@ -11,10 +11,10 @@ function divide(a,b) {
     return a / b
 }
 function integerDivide(a,b) {
-    return a / b >> 0;
+    return Math.trunc(a / b);
 }
-console.log(addition() + '\n');
-console.log(addition(1) + '\n');
+console.log(addition());
+console.log(addition(1));
 console.log(addition(10, 10));
 console.log(addition("twenty", true));
 console.log(subtraction(10, 10));
