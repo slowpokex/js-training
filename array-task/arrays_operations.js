@@ -1,10 +1,14 @@
-'use strict'
-function isArrayOne(x) {
-  return x.constructor == Array;
+'use strict';
+function isArrayOne(arr) {
+  return arr.constructor === Array;
 }
 
-function isArrayTwo(x) {
-  return x instanceof Array;
+function isArrayTwo(arr) {
+  return arr instanceof Array;
+}
+
+function isArrayThree(arr) {
+  return Object.prototype.toString.call(arr) === '[object Array]'
 }
 
 function range() {
@@ -33,7 +37,7 @@ function range() {
 
 function compact(x) {
   return x.filter(function (x) {
-    return new Boolean(x).valueOf() === true;
+    return Boolean(x).valueOf() === true;
   });
 }
 
@@ -68,10 +72,6 @@ function uniqueWithoutCycle(x) {
 }
 
 function last(x) {
-  return x.reverse()[0]
-}
-
-function lastWithoutCycle(x) {
   return x[(x.length - 1)];
 }
 
@@ -99,6 +99,8 @@ console.log(isArrayOne([]));
 console.log(isArrayOne({}));
 console.log(isArrayTwo([]));
 console.log(isArrayTwo({}));
+console.log(isArrayThree([]));
+console.log(isArrayThree({}));
 
 console.log("\nrange():");
 console.log(range(10));
@@ -118,7 +120,6 @@ console.log(uniqueWithoutCycle([1,1,1,1,2,1,1,2,3,6,5,4,4,4]));
 
 console.log("\nLast:");
 console.log(last([1,2,3,4,5,6]));
-console.log(lastWithoutCycle([1,2,3,4,5,6]));
 
 console.log('\nexcludeLast with array [1,1,1,1,2,1,1,2,3,6,5,4,4,4] and count 5');
 console.log(excludeLastWithCycle([1,1,1,1,2,1,1,2,3,6,5,4,4,4], 5));
