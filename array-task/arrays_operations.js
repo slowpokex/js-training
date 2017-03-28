@@ -9,16 +9,17 @@ function isArrayTwo(arr) {
 
 function range(x, y, z) {
   var arr = [];
-  if (y === undefined && z === undefined){ y = x; x = 0;  }
-  for (var i = x; i < y; i++) {
-    if (i % (z) !== 0) { arr.push(i) }
+  if (z === undefined){ z = 1; }
+  if (y === undefined){ y = x; x = 0; z = 1; }
+  for (var i = x; i < y; i += z) {
+   arr.push(i)
   }
   return arr;
 }
 
-function compact(x) {
-  return x.filter(function (x) {
-    return x;
+function compact(arr) {
+  return arr.filter(function (item) {
+    return item;
   });
 }
 
@@ -56,16 +57,9 @@ function last(x) {
   return x[x.length - 1];
 }
 
-function lastSecond(x) {
-  return x.reverse()[0]
-}
-
 function excludeLast(arr, x) {
-  if (x !== undefined) {
-    return arr.slice(0, arr.length - x)
-  } else {
-    return arr.slice(0, arr.length - 1)
-  }
+  if (x === undefined) { x = 1; }
+  return arr.slice(0, arr.length - x)
 }
 
 console.log("isArray():");
@@ -76,7 +70,7 @@ console.log(isArrayTwo({}));
 console.log("\nrange():");
 console.log(range(5));
 console.log(range(1,5));
-console.log(range(1,10,2));
+console.log(range(1,12,4));
 console.log("\ncompact()");
 console.log(compact([{}, false, 1, 0]));
 console.log("\nSum:");
@@ -87,7 +81,6 @@ console.log(uniqueWithCycle([1,1,1,1,2,1,1,2,3,6,5,4,4,4]));
 console.log(uniqueWithoutCycle([1,1,1,1,2,1,1,2,3,6,5,4,4,4]));
 console.log("\nLast:");
 console.log(last([1,2,3,4,5,6]));
-console.log(lastSecond([1,2,3,4,5,6]));
 console.log('\nexcludeLast with array [1,1,1,1,2,1,1,2,3,6,5,4,4,4] and count 5');
 console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4], 5));
 console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4]));
