@@ -8,11 +8,23 @@ function isArrayTwo(arr) {
 }
 
 function range(x, y, z) {
+  function getExpr(x , y) {
+    if (z > 0 && x < y) { return x < y }
+    if (z < 0 && x > y) { return x > y }
+  }
   var arr = [];
-  if (z === undefined){ z = 1; }
-  if (y === undefined){ y = x; x = 0; z = 1; }
-  for (var i = x; i < y; i += z) {
-   arr.push(i)
+  if (y === undefined){ y = x; x = 0;}
+  if (z < 0) {
+    if (x <= y) {
+      return arr;
+    }
+  } else {
+    z = z || 1;
+  }
+
+  while (getExpr(x, y)) {
+    arr.push(x);
+    x += z;
   }
   return arr;
 }
@@ -59,6 +71,7 @@ function last(x) {
 
 function excludeLast(arr, x) {
   if (x === undefined) { x = 1; }
+  if (x < 0) { x = Math.abs(x)}
   return arr.slice(0, arr.length - x)
 }
 
@@ -71,6 +84,7 @@ console.log("\nrange():");
 console.log(range(5));
 console.log(range(1,5));
 console.log(range(1,12,4));
+console.log(range(12,1,-3));
 console.log("\ncompact()");
 console.log(compact([{}, false, 1, 0]));
 console.log("\nSum:");
@@ -84,3 +98,4 @@ console.log(last([1,2,3,4,5,6]));
 console.log('\nexcludeLast with array [1,1,1,1,2,1,1,2,3,6,5,4,4,4] and count 5');
 console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4], 5));
 console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4]));
+console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4], -5));
