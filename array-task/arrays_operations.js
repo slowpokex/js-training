@@ -8,12 +8,14 @@ function isArrayTwo(arr) {
 }
 
 function range(x, y, z) {
-  function getExpr(x , y) {
+
+  function hasSteps(x , y) {
     if (z > 0 && x < y) { return x < y }
     if (z < 0 && x > y) { return x > y }
   }
+
   var arr = [];
-  if (y === undefined){ y = x; x = 0;}
+  if (y === undefined || y === null){ y = x; x = 0; }
   if (z < 0) {
     if (x <= y) {
       return arr;
@@ -22,7 +24,7 @@ function range(x, y, z) {
     z = z || 1;
   }
 
-  while (getExpr(x, y)) {
+  while (hasSteps(x, y)) {
     arr.push(x);
     x += z;
   }
@@ -71,7 +73,7 @@ function last(x) {
 
 function excludeLast(arr, x) {
   if (x === undefined) { x = 1; }
-  if (x < 0) { x = Math.abs(x)}
+  if (x < 0) { return arr.slice(Math.abs(x), arr.length);}
   return arr.slice(0, arr.length - x)
 }
 
@@ -98,4 +100,19 @@ console.log(last([1,2,3,4,5,6]));
 console.log('\nexcludeLast with array [1,1,1,1,2,1,1,2,3,6,5,4,4,4] and count 5');
 console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4], 5));
 console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4]));
-console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4], -5));
+console.log(excludeLast([1,1,1,1,2,1,1,2,3,6,5,4,4,4], -7));
+console.log("Test ranges:");
+console.log(range(10));
+console.log(range(1, 10));
+console.log(range(1, 10, 3));
+console.log(range(10, null, 3));
+console.log(range(10, null));
+console.log(range(-2, -5));
+console.log(range(-5, -2));
+console.log(range(-5, -2, 2));
+console.log(range(-5, -2, -2));
+console.log(range(-5, null, 2));
+console.log(range(-5, null, -2));
+console.log(range(-10, -20, -5));
+console.log(range(-20, -10, -5));
+
