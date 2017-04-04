@@ -15,7 +15,10 @@ function range(x, y, z) {
   }
 
   var arr = [];
-  if (y === undefined || y === null){ y = x; x = 0; }
+  if (y === undefined || y === null){ 
+    y = x;
+    x = 0;
+  }
   if (z < 0) {
     if (x <= y) {
       return arr;
