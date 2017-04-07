@@ -34,7 +34,7 @@ function binarySearchWithLoop(arr, key, start, end) {
   }
 }
 
-var array = [1,22,5,7,8,88,96,578,54,1,2,3];
+var array = [1, 22, 5, 7, 8, 88, 96, 578, 54, 1, 2, 3];
 
 array.sort(function (a, b) {
   return a - b;
