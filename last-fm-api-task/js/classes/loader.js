@@ -11,6 +11,10 @@ Loader.prototype.METHOD_KEY = 'method=';
 Loader.prototype.ARTIST_KEY = '&artist=';
 Loader.prototype.ALBUM_KEY = '&album=';
 
+Loader.prototype.LINE_API_KEY = '&api_key=' + Loader.prototype.API_KEY;
+Loader.prototype.LINE_FORMAT = '&format=' + Loader.prototype.FORMAT;
+Loader.prototype.QUERY_POSTFIX = Loader.prototype.LINE_API_KEY + Loader.prototype.LINE_FORMAT;
+
 Loader.prototype.returnMethodQuery = function (method) {
   return Loader.prototype.METHOD_KEY + method;
 };
@@ -22,10 +26,6 @@ Loader.prototype.returnArtistParameter = function (value) {
 Loader.prototype.returnAlbumParameter = function (value) {
   return Loader.prototype.ALBUM_KEY + value;
 };
-
-Loader.prototype.LINE_API_KEY = '&api_key=' + Loader.prototype.API_KEY;
-Loader.prototype.LINE_FORMAT = '&format=' + Loader.prototype.FORMAT;
-Loader.prototype.QUERY_POSTFIX = Loader.prototype.LINE_API_KEY + Loader.prototype.LINE_FORMAT;
 
 Loader.prototype.inherits = function (parent, child) {
   child.prototype = Object.create(parent.prototype);
