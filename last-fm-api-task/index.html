@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>LastFM-task</title>
+    <link rel="stylesheet" href="css/main.css" charset="UTF-8"/>
+    <script src="js/classes/loader.js"></script>
+    <script src="js/classes/albumInfo.js"></script>
+    <script src="js/classes/artistInfo.js"></script>
+    <script src="js/classes/artistList.js"></script>
+    <script src="js/classes/searchArtist.js"></script>
+  </head>
+  <body>
+    <div class="search-box">
+      <h4>Last FM Search</h4>
+      <select name="category">
+        <option name="category" value="artist-list" selected>List of artists</option>
+        <option name="category" value="search-artist">Search artist</option>
+        <option name="category" value="search-artist-info">Search artist's info</option>
+        <option name="category" value="search-album">Album info</option>
+      </select>
+      <div id="queryParameters"></div>
+      <input type="button" id="startSearch" value="Find"/>
+    </div>
+    <ul class="result-box"></ul>
+    <script src="js/handler.js"></script>
+  </body>
+</html>
