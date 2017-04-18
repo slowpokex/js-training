@@ -1,5 +1,6 @@
-'use strict'
-function Loader() { }
+'use strict';
+
+function Loader() {}
 
 //Settings for Last.FM application
 Loader.prototype.API_KEY = '9a5f1f19efe1727160e4dbb5e4367b9d';
@@ -36,14 +37,14 @@ Loader.prototype.parseToObj = function (response) {};
 
 Loader.prototype.load = function (queryParams) {
   return new Promise(function (resolve, reject) {
-    const xhr =  new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
 
     xhr.open('GET', queryParams, true);
     xhr.setRequestHeader("Cache-Control", 'no-cache');
 
     xhr.send();
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
       if (this.readyState !== 4) return;
       if (this.status !== 200) {
         reject(this);
@@ -53,3 +54,4 @@ Loader.prototype.load = function (queryParams) {
     };
   });
 };
+//# sourceMappingURL=loader.js.map

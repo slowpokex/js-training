@@ -7,12 +7,12 @@ function ArtistInfo() {
     const fullQuery = this.__proto__.START_URL + methodQuery + artistQuery + this.__proto__.QUERY_POSTFIX;
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
-  }
+  };
 
   this.parseToObj = function (response) {
     let result = {};
     return result;
-  }
+  };
 }
 
 Loader.prototype.inherits(Loader, ArtistInfo);
