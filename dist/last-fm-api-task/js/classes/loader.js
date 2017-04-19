@@ -1,5 +1,9 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Loader;
 function Loader() {}
 
 //Settings for Last.FM application
@@ -38,7 +42,6 @@ Loader.prototype.parseToObj = function (response) {};
 Loader.prototype.load = function (queryParams) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
-
     xhr.open('GET', queryParams, true);
     xhr.setRequestHeader("Cache-Control", 'no-cache');
 

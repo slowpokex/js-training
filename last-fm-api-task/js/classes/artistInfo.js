@@ -1,5 +1,7 @@
 'use strict'
-function ArtistInfo() {
+import Loader from './loader';
+
+export default function ArtistInfo() {
   this.load = function (artist) {
     const method = 'artist.getinfo';
     const methodQuery = this.__proto__.returnMethodQuery(method);

@@ -1,5 +1,16 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ArtistSearch;
+
+var _loader = require('./loader');
+
+var _loader2 = _interopRequireDefault(_loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function ArtistSearch() {
   this.load = function (artist) {
     var method = 'artist.search';
@@ -16,5 +27,5 @@ function ArtistSearch() {
   };
 }
 
-Loader.prototype.inherits(Loader, ArtistSearch);
+_loader2.default.prototype.inherits(_loader2.default, ArtistSearch);
 //# sourceMappingURL=searchArtist.js.map

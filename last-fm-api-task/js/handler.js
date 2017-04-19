@@ -1,4 +1,10 @@
 'use strict';
+import Loader from './classes/loader';
+import ArtistList from './classes/artistList';
+import ArtistInfo from './classes/artistInfo';
+import AlbumInfo from './classes/albumInfo';
+import ArtistSearch from './classes/searchArtist';
+
 function searchResult() {
   const type = document.querySelector('select[name="category"]');
   const artist = document.querySelector('input[name="artist"]');

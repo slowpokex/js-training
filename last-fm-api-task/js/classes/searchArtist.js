@@ -1,5 +1,7 @@
 'use strict';
-function ArtistSearch() {
+import Loader from './loader';
+
+export default function ArtistSearch() {
   this.load = function (artist) {
     const method = 'artist.search';
     const methodQuery = this.__proto__.returnMethodQuery(method);

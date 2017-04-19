@@ -1,5 +1,16 @@
 'use strict';
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AlbumInfo;
+
+var _loader = require('./loader');
+
+var _loader2 = _interopRequireDefault(_loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 function AlbumInfo() {
   this.load = function (artist, album) {
     var method = 'album.getinfo';
@@ -17,5 +28,5 @@ function AlbumInfo() {
   };
 }
 
-Loader.prototype.inherits(Loader, AlbumInfo);
+_loader2.default.prototype.inherits(_loader2.default, AlbumInfo);
 //# sourceMappingURL=albumInfo.js.map

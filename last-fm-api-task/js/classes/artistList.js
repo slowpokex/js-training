@@ -1,5 +1,7 @@
 'use strict';
-function ArtistList() {
+import Loader from './loader';
+
+export default function ArtistList() {
   const method = 'chart.gettopartists';
   const fullQuery = this.START_URL + this.returnMethodQuery(method) + this.QUERY_POSTFIX;
 
