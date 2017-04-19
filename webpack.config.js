@@ -1,7 +1,5 @@
 'use strict';
-var webpack = require("webpack");
 var path = require("path");
-var glob = require("glob");
 
 module.exports = {
   entry : ["./last-fm-api-task/js/classes/loader",
@@ -9,7 +7,7 @@ module.exports = {
     "./last-fm-api-task/js/classes/albumInfo",
     "./last-fm-api-task/js/classes/artistInfo",
     "./last-fm-api-task/js/classes/artistList",
-    "./last-fm-api-task/js/classes/searchArtist"],//toObject(glob.sync('last-fm-api-task/**/*.js*')),
+    "./last-fm-api-task/js/classes/searchArtist"],
   output : {
     path: path.resolve(__dirname, 'last-fm-api-task/build'),
     filename: "bundle.js",
@@ -24,12 +22,3 @@ module.exports = {
       ]
     }
 };
-
-function toObject(paths) {
-  let ret = {};
-
-  paths.forEach(function(path) {
-    ret[path.split('/').slice(-1)[0]] = path;
-  });
-  return ret;
-}

@@ -1,5 +1,6 @@
 'use strict';
 import Loader from './loader';
+
 export default function AlbumInfo() {
   this.load = function (artist, album) {
     const method = 'album.getinfo';

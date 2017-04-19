@@ -129,6 +129,7 @@ Loader.prototype.load = function (queryParams) {
   });
 };
 
+
 /***/ }),
 /* 1 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -137,6 +138,7 @@ Loader.prototype.load = function (queryParams) {
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader__ = __webpack_require__(0);
 /* harmony export (immutable) */ __webpack_exports__["default"] = AlbumInfo;
+
 
 
 function AlbumInfo() {
@@ -157,6 +159,7 @@ function AlbumInfo() {
 }
 
 __WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], AlbumInfo);
+
 
 /***/ }),
 /* 2 */
@@ -187,6 +190,7 @@ function ArtistInfo() {
 
 __WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], ArtistInfo);
 
+
 /***/ }),
 /* 3 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -216,6 +220,7 @@ function ArtistList() {
 
 __WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], ArtistList);
 
+
 /***/ }),
 /* 4 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -244,6 +249,7 @@ function ArtistSearch() {
 }
 
 __WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], ArtistSearch);
+
 
 /***/ }),
 /* 5 */
@@ -314,7 +320,6 @@ function selectCategory(event) {
 }
 
 function parseResponse(response, type) {
-  //let result = JSON.parse(response.responseText);
   if (!type instanceof __WEBPACK_IMPORTED_MODULE_0__classes_loader__["default"]) return;
   alert(response.responseText)
 }

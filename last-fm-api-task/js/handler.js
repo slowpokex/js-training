@@ -56,7 +56,6 @@ function selectCategory(event) {
 }
 
 function parseResponse(response, type) {
-  //let result = JSON.parse(response.responseText);
   if (!type instanceof Loader) return;
   alert(response.responseText)
 }
