@@ -8,7 +8,7 @@ export default function ArtistList() {
   this.load = function () {
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
-  }
+  };
 
   this.parseToObj = function (response) {
     let result = {};

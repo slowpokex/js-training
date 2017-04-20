@@ -1,4 +1,4 @@
-var lastFm =
+var main =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -61,7 +61,7 @@ var lastFm =
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 6);
@@ -69,56 +69,60 @@ var lastFm =
 /************************************************************************/
 /******/ ([
 /* 0 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["default"] = Loader;
 
-function Loader() { }
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = Loader;
+function Loader() {}
+
+var PROTO = Loader.prototype;
 //Settings for Last.FM application
-Loader.prototype.API_KEY = '9a5f1f19efe1727160e4dbb5e4367b9d';
-Loader.prototype.SECRET_KEY = '92348e86733362627fd83e30dba8046e';
-Loader.prototype.START_URL = 'http://ws.audioscrobbler.com/2.0/?';
-Loader.prototype.FORMAT = 'json';
+PROTO.API_KEY = '9a5f1f19efe1727160e4dbb5e4367b9d';
+PROTO.SECRET_KEY = '92348e86733362627fd83e30dba8046e';
+PROTO.START_URL = 'http://ws.audioscrobbler.com/2.0/?';
+PROTO.FORMAT = 'json';
 
-Loader.prototype.METHOD_KEY = 'method=';
-Loader.prototype.ARTIST_KEY = '&artist=';
-Loader.prototype.ALBUM_KEY = '&album=';
+PROTO.METHOD_KEY = 'method=';
+PROTO.ARTIST_KEY = '&artist=';
+PROTO.ALBUM_KEY = '&album=';
 
-Loader.prototype.LINE_API_KEY = '&api_key=' + Loader.prototype.API_KEY;
-Loader.prototype.LINE_FORMAT = '&format=' + Loader.prototype.FORMAT;
-Loader.prototype.QUERY_POSTFIX = Loader.prototype.LINE_API_KEY + Loader.prototype.LINE_FORMAT;
+PROTO.LINE_API_KEY = '&api_key=' + PROTO.API_KEY;
+PROTO.LINE_FORMAT = '&format=' + PROTO.FORMAT;
+PROTO.QUERY_POSTFIX = PROTO.LINE_API_KEY + PROTO.LINE_FORMAT;
 
-Loader.prototype.returnMethodQuery = function (method) {
+PROTO.returnMethodQuery = function (method) {
   return Loader.prototype.METHOD_KEY + method;
 };
 
-Loader.prototype.returnArtistParameter = function (value) {
+PROTO.returnArtistParameter = function (value) {
   return Loader.prototype.ARTIST_KEY + value;
 };
 
-Loader.prototype.returnAlbumParameter = function (value) {
+PROTO.returnAlbumParameter = function (value) {
   return Loader.prototype.ALBUM_KEY + value;
 };
 
-Loader.prototype.inherits = function (parent, child) {
+PROTO.inherits = function (parent, child) {
   child.prototype = Object.create(parent.prototype);
   child.prototype.constructor = child;
 };
 
-Loader.prototype.parseToObj = function (response) {};
+PROTO.parseToObj = function (response) {};
 
-Loader.prototype.load = function (queryParams) {
+PROTO.load = function (queryParams) {
   return new Promise(function (resolve, reject) {
-    const xhr =  new XMLHttpRequest();
+    var xhr = new XMLHttpRequest();
     xhr.open('GET', queryParams, true);
     xhr.setRequestHeader("Cache-Control", 'no-cache');
 
     xhr.send();
 
-    xhr.onreadystatechange = function() {
+    xhr.onreadystatechange = function () {
       if (this.readyState !== 4) return;
       if (this.status !== 200) {
         reject(this);
@@ -129,214 +133,221 @@ Loader.prototype.load = function (queryParams) {
   });
 };
 
-
 /***/ }),
 /* 1 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader__ = __webpack_require__(0);
-/* harmony export (immutable) */ __webpack_exports__["default"] = AlbumInfo;
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = AlbumInfo;
+
+var _loader = __webpack_require__(0);
+
+var _loader2 = _interopRequireDefault(_loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function AlbumInfo() {
   this.load = function (artist, album) {
-    const method = 'album.getinfo';
-    const methodQuery = this.__proto__.returnMethodQuery(method);
-    const artistQuery = this.__proto__.returnArtistParameter(artist);
-    const albumQuery = this.__proto__.returnAlbumParameter(album);
-    const fullQuery = this.__proto__.START_URL + methodQuery + artistQuery + albumQuery + this.QUERY_POSTFIX;
+    var method = 'album.getinfo';
+    var methodQuery = this.__proto__.returnMethodQuery(method);
+    var artistQuery = this.__proto__.returnArtistParameter(artist);
+    var albumQuery = this.__proto__.returnAlbumParameter(album);
+    var fullQuery = this.__proto__.START_URL + methodQuery + artistQuery + albumQuery + this.QUERY_POSTFIX;
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
-  }
+  };
 
   this.parseToObj = function (response) {
-    let result = {};
+    var result = {};
     return result;
-  }
+  };
 }
 
-__WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], AlbumInfo);
-
+_loader2.default.prototype.inherits(_loader2.default, AlbumInfo);
 
 /***/ }),
 /* 2 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader__ = __webpack_require__(0);
-/* harmony export (immutable) */ __webpack_exports__["default"] = ArtistInfo;
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ArtistInfo;
+
+var _loader = __webpack_require__(0);
+
+var _loader2 = _interopRequireDefault(_loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ArtistInfo() {
   this.load = function (artist) {
-    const method = 'artist.getinfo';
-    const methodQuery = this.__proto__.returnMethodQuery(method);
-    const artistQuery = this.__proto__.returnArtistParameter(artist);
-    const fullQuery = this.__proto__.START_URL + methodQuery + artistQuery + this.__proto__.QUERY_POSTFIX;
+    var method = 'artist.getinfo';
+    var methodQuery = this.__proto__.returnMethodQuery(method);
+    var artistQuery = this.__proto__.returnArtistParameter(artist);
+    var fullQuery = this.__proto__.START_URL + methodQuery + artistQuery + this.__proto__.QUERY_POSTFIX;
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
   };
 
   this.parseToObj = function (response) {
-    let result = {};
+    var result = {};
     return result;
   };
 }
 
-__WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], ArtistInfo);
-
+_loader2.default.prototype.inherits(_loader2.default, ArtistInfo);
 
 /***/ }),
 /* 3 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader__ = __webpack_require__(0);
-/* harmony export (immutable) */ __webpack_exports__["default"] = ArtistList;
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ArtistList;
+
+var _loader = __webpack_require__(0);
+
+var _loader2 = _interopRequireDefault(_loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ArtistList() {
-  const method = 'chart.gettopartists';
-  const fullQuery = this.START_URL + this.returnMethodQuery(method) + this.QUERY_POSTFIX;
+  var method = 'chart.gettopartists';
+  var fullQuery = this.START_URL + this.returnMethodQuery(method) + this.QUERY_POSTFIX;
 
   this.load = function () {
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
-  }
+  };
 
   this.parseToObj = function (response) {
-    let result = {};
-    let draft = JSON.parse(response);
+    var result = {};
+    var draft = JSON.parse(response);
     return result;
-  }
+  };
 }
 
-__WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], ArtistList);
-
+_loader2.default.prototype.inherits(_loader2.default, ArtistList);
 
 /***/ }),
 /* 4 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loader__ = __webpack_require__(0);
-/* harmony export (immutable) */ __webpack_exports__["default"] = ArtistSearch;
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = ArtistSearch;
+
+var _loader = __webpack_require__(0);
+
+var _loader2 = _interopRequireDefault(_loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function ArtistSearch() {
   this.load = function (artist) {
-    const method = 'artist.search';
-    const methodQuery = this.__proto__.returnMethodQuery(method);
-    const artistQuery = this.__proto__.returnArtistParameter(artist);
-    const fullQuery = this.__proto__.START_URL + methodQuery + artistQuery + this.__proto__.QUERY_POSTFIX;
+    var method = 'artist.search';
+    var methodQuery = this.__proto__.returnMethodQuery(method);
+    var artistQuery = this.__proto__.returnArtistParameter(artist);
+    var fullQuery = this.__proto__.START_URL + methodQuery + artistQuery + this.__proto__.QUERY_POSTFIX;
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
-  }
+  };
 
   this.parseToObj = function (response) {
-    let result = {};
+    var result = {};
     return result;
-  }
+  };
 }
 
-__WEBPACK_IMPORTED_MODULE_0__loader__["default"].prototype.inherits(__WEBPACK_IMPORTED_MODULE_0__loader__["default"], ArtistSearch);
-
+_loader2.default.prototype.inherits(_loader2.default, ArtistSearch);
 
 /***/ }),
 /* 5 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__classes_loader__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__classes_artistList__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__classes_artistInfo__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__classes_albumInfo__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__classes_searchArtist__ = __webpack_require__(4);
 
 
+var _loader = __webpack_require__(0);
 
+var _loader2 = _interopRequireDefault(_loader);
 
+var _artistList = __webpack_require__(3);
 
+var _artistList2 = _interopRequireDefault(_artistList);
 
+var _artistInfo = __webpack_require__(2);
+
+var _artistInfo2 = _interopRequireDefault(_artistInfo);
+
+var _albumInfo = __webpack_require__(1);
+
+var _albumInfo2 = _interopRequireDefault(_albumInfo);
+
+var _searchArtist = __webpack_require__(4);
+
+var _searchArtist2 = _interopRequireDefault(_searchArtist);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function searchResult() {
-  const type = document.querySelector('select[name="category"]');
-  const artist = document.querySelector('input[name="artist"]');
-  const album = document.querySelector('input[name="album"]');
-  let response;
-  let loader;
+  var type = document.querySelector('select[name="category"]');
+  var artist = document.querySelector('input[name="artist"]');
+  var album = document.querySelector('input[name="album"]');
+  var response = void 0;
+  var loader = void 0;
 
   switch (type.value) {
-    case 'artist-list' : {
-      loader = new __WEBPACK_IMPORTED_MODULE_1__classes_artistList__["default"]();
-      response = loader.load();
-    } break;
-    case 'search-artist' : {
-      loader = new __WEBPACK_IMPORTED_MODULE_4__classes_searchArtist__["default"]();
-      response = loader.load(artist.value);
-    } break;
-    case 'search-artist-info' : {
-      loader = new __WEBPACK_IMPORTED_MODULE_2__classes_artistInfo__["default"]();
-      response = loader.load(artist.value);
-    } break;
-    case 'search-album' : {
-      loader = new __WEBPACK_IMPORTED_MODULE_3__classes_albumInfo__["default"]();
-      response = loader.load(artist.value, album.value);
-    } break;
+    case 'artist-list':
+      {
+        loader = new _artistList2.default();
+        response = loader.load();
+      }break;
+    case 'search-artist':
+      {
+        loader = new _searchArtist2.default();
+        response = loader.load(artist.value);
+      }break;
+    case 'search-artist-info':
+      {
+        loader = new _artistInfo2.default();
+        response = loader.load(artist.value);
+      }break;
+    case 'search-album':
+      {
+        loader = new _albumInfo2.default();
+        response = loader.load(artist.value, album.value);
+      }break;
   }
-  response
-    .then(res => parseResponse(res, loader));
-}
-
-function selectCategory(event) {
-  const params = document.getElementById('queryParameters');
-  const artistInput = returnInput('artist');
-  const albumInput = returnInput('album');
-
-  params.innerHTML = '';
-
-  switch (event.currentTarget.value) {
-    case 'search-artist' : {
-      params.appendChild(artistInput);
-    } break;
-    case 'search-artist-info' : {
-      params.appendChild(artistInput);
-    } break;
-    case 'search-album' : {
-      params.appendChild(artistInput);
-      params.appendChild(albumInput);
-    } break;
-  }
+  response.then(function (res) {
+    return parseResponse(res, loader);
+  });
 }
 
 function parseResponse(response, type) {
-  if (!type instanceof __WEBPACK_IMPORTED_MODULE_0__classes_loader__["default"]) return;
-  alert(response.responseText)
+  if (!type instanceof _loader2.default) return;
+  alert(response.responseText);
 }
 
-function returnInput(nameOfField) {
-  const input = document.createElement('input');
-  input.type = 'text';
-  input.name = nameOfField;
-  input.placeholder='Enter the ' + nameOfField + ' value...';
-  return input;
-}
-
-const search = document.getElementById('startSearch');
+var search = document.getElementById('startSearch');
 search.addEventListener('click', searchResult);
-const type = document.querySelector('select[name="category"]');
-type.addEventListener('change', selectCategory);
-
 
 /***/ }),
 /* 6 */

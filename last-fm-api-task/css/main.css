@@ -2,61 +2,72 @@ body {
 	font-family: "Calibri";
 	font-size: large;
 	font-weight: bold;
-	background: #e3e3e3;
+	background: #d8d8d8;
 }
 
 .search-box {
 	border-radius: 12px;
-	border: 2px solid #c41e24;
+	border: 2px solid #333333;
 	padding: 10px;
-	width: 40%;
+	width: 90%;
+	height: 65px;
 	-webkit-box-sizing: border-box;
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
-	background: rgba(206, 29, 35, 0.98);
+	background: rgba(39, 33, 31, 0.98);
 	margin: 0 auto;
 }
 
-.search-box > h4 {
-	margin: 10px auto;
-	text-align: center;
-	color: #ffffff;
+#label {
+	background: url(../img/lastfm.png) no-repeat center center;
+	background-size: cover;
+	width: 100px;
+	height: 45px;
+	display: inline-block;
+	background-position-y: -30px;
 }
 
-.search-box > select[name='category'] {
-
-}
-
-.search-box input, .search-box select {
+.search-box input[type='text'] {
+	position: relative;
 	border: 2px solid #5f5f5f;
 	border-radius: 10px;
 	height: 25px;
 	font-size: 16px;
 	color: #5f5f5f;
-	width: 40%;
+	width: 60%;
 	padding: 2px;
-	margin: 10px;
-	display: block;
+	margin: 0 0 0 10px;
+	top: -20px;
 }
 
-.search-box input[type='text'] {
-	display: inline-block;
+.search-box input[type='button'] {
+	position: relative;
+	border-radius: 10px;
+	height: 30px;
+	width: 100px;
+	float: right;
+	top: 5px;
+	background-color: #e5080d;
+	border: 1px black;
+	margin-right: 10px;
+	font-family: 'Calibri';
+	font-size: 16px;
 }
 
 .result-box {
-	list-style: none;
-	-webkit-padding-start: 0;
+	width: 100%;
+	margin: 50px;
 }
 
-.result-box > li {
-	padding: 0;
-	width: 40%;
-	height: 50px;
-	-webkit-box-sizing: border-box;
-	-moz-box-sizing: border-box;
-	box-sizing: border-box;
-	border-radius: 12px;
-	border: 2px solid #64dafa;
-	margin: 10px auto;
-	background: whitesmoke;
+.result-box .element {
+	width: 200px;
+	height: 200px;
+	border: 2px solid;
+	border-radius: 10%;
+	margin: 20px;
+	display: inline-block;
+}
+
+.footer {
+
 }

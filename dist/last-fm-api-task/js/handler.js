@@ -56,45 +56,11 @@ function searchResult() {
   });
 }
 
-function selectCategory(event) {
-  var params = document.getElementById('queryParameters');
-  var artistInput = returnInput('artist');
-  var albumInput = returnInput('album');
-
-  params.innerHTML = '';
-
-  switch (event.currentTarget.value) {
-    case 'search-artist':
-      {
-        params.appendChild(artistInput);
-      }break;
-    case 'search-artist-info':
-      {
-        params.appendChild(artistInput);
-      }break;
-    case 'search-album':
-      {
-        params.appendChild(artistInput);
-        params.appendChild(albumInput);
-      }break;
-  }
-}
-
 function parseResponse(response, type) {
   if (!type instanceof _loader2.default) return;
   alert(response.responseText);
 }
 
-function returnInput(nameOfField) {
-  var input = document.createElement('input');
-  input.type = 'text';
-  input.name = nameOfField;
-  input.placeholder = 'Enter the ' + nameOfField + ' value...';
-  return input;
-}
-
 var search = document.getElementById('startSearch');
 search.addEventListener('click', searchResult);
-var type = document.querySelector('select[name="category"]');
-type.addEventListener('change', selectCategory);
 //# sourceMappingURL=handler.js.map

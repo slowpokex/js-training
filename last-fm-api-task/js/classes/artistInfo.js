@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import Loader from './loader';
 
 export default function ArtistInfo() {
