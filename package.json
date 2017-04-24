@@ -6,12 +6,16 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
     "babel-preset-env": "^1.3.3",
+    "lodash": "^4.17.4",
     "npm-install-webpack-plugin": "^4.0.4"
   },
-  "babel": {},
   "dependencies": {
     "babel-preset-env": "^1.4.0",
     "glob": "^7.1.1",
     "webpack": "latest"
+  },
+  "scripts": {
+    "prestart": "webpack",
+    "start": "static &"
   }
 }

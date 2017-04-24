@@ -81,6 +81,7 @@ exports.default = Loader;
 function Loader() {}
 
 var PROTO = Loader.prototype;
+
 //Settings for Last.FM application
 PROTO.API_KEY = '9a5f1f19efe1727160e4dbb5e4367b9d';
 PROTO.SECRET_KEY = '92348e86733362627fd83e30dba8046e';
@@ -90,10 +91,20 @@ PROTO.FORMAT = 'json';
 PROTO.METHOD_KEY = 'method=';
 PROTO.ARTIST_KEY = '&artist=';
 PROTO.ALBUM_KEY = '&album=';
+PROTO.PAGE_KEY = '&page=';
+PROTO.LIMIT_KEY = '&limit=';
 
 PROTO.LINE_API_KEY = '&api_key=' + PROTO.API_KEY;
 PROTO.LINE_FORMAT = '&format=' + PROTO.FORMAT;
 PROTO.QUERY_POSTFIX = PROTO.LINE_API_KEY + PROTO.LINE_FORMAT;
+
+PROTO.generatePage = function (page) {
+  return PROTO.PAGE_KEY + (page || 1);
+};
+
+PROTO.generateLimit = function (page) {
+  return PROTO.LIMIT_KEY + (page || 50);
+};
 
 PROTO.returnMethodQuery = function (method) {
   return Loader.prototype.METHOD_KEY + method;
@@ -143,6 +154,42 @@ PROTO.load = function (queryParams) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
+exports.default = ArtistList;
+
+var _loader = __webpack_require__(0);
+
+var _loader2 = _interopRequireDefault(_loader);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function ArtistList() {
+  var method = 'chart.gettopartists';
+
+  this.load = function (page) {
+    var fullQuery = this.START_URL + this.returnMethodQuery(method) + this.generatePage(page) + this.generateLimit(50) + this.QUERY_POSTFIX;
+    console.log(fullQuery);
+    return this.__proto__.load(fullQuery);
+  };
+
+  this.parseToObj = function (response) {
+    var result = {};
+    var draft = JSON.parse(response);
+    return result;
+  };
+}
+
+_loader2.default.prototype.inherits(_loader2.default, ArtistList);
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
 exports.default = AlbumInfo;
 
 var _loader = __webpack_require__(0);
@@ -171,7 +218,7 @@ function AlbumInfo() {
 _loader2.default.prototype.inherits(_loader2.default, AlbumInfo);
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -205,42 +252,6 @@ function ArtistInfo() {
 }
 
 _loader2.default.prototype.inherits(_loader2.default, ArtistInfo);
-
-/***/ }),
-/* 3 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = ArtistList;
-
-var _loader = __webpack_require__(0);
-
-var _loader2 = _interopRequireDefault(_loader);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function ArtistList() {
-  var method = 'chart.gettopartists';
-  var fullQuery = this.START_URL + this.returnMethodQuery(method) + this.QUERY_POSTFIX;
-
-  this.load = function () {
-    console.log(fullQuery);
-    return this.__proto__.load(fullQuery);
-  };
-
-  this.parseToObj = function (response) {
-    var result = {};
-    var draft = JSON.parse(response);
-    return result;
-  };
-}
-
-_loader2.default.prototype.inherits(_loader2.default, ArtistList);
 
 /***/ }),
 /* 4 */
@@ -285,69 +296,156 @@ _loader2.default.prototype.inherits(_loader2.default, ArtistSearch);
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+exports.generateRange = generateRange;
+exports.addSpinner = addSpinner;
+
 var _loader = __webpack_require__(0);
 
 var _loader2 = _interopRequireDefault(_loader);
 
-var _artistList = __webpack_require__(3);
+var _artistList = __webpack_require__(1);
 
 var _artistList2 = _interopRequireDefault(_artistList);
 
-var _artistInfo = __webpack_require__(2);
-
-var _artistInfo2 = _interopRequireDefault(_artistInfo);
-
-var _albumInfo = __webpack_require__(1);
-
-var _albumInfo2 = _interopRequireDefault(_albumInfo);
-
-var _searchArtist = __webpack_require__(4);
-
-var _searchArtist2 = _interopRequireDefault(_searchArtist);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function searchResult() {
-  var type = document.querySelector('select[name="category"]');
-  var artist = document.querySelector('input[name="artist"]');
-  var album = document.querySelector('input[name="album"]');
-  var response = void 0;
-  var loader = void 0;
+function generateRange(currPage, maxPages) {
+  var arr = [];
 
-  switch (type.value) {
-    case 'artist-list':
-      {
-        loader = new _artistList2.default();
-        response = loader.load();
-      }break;
-    case 'search-artist':
-      {
-        loader = new _searchArtist2.default();
-        response = loader.load(artist.value);
-      }break;
-    case 'search-artist-info':
-      {
-        loader = new _artistInfo2.default();
-        response = loader.load(artist.value);
-      }break;
-    case 'search-album':
-      {
-        loader = new _albumInfo2.default();
-        response = loader.load(artist.value, album.value);
-      }break;
+  currPage = Number.parseInt(currPage);
+  maxPages = Number.parseInt(maxPages);
+
+  var vault = 3;
+  var start = void 0,
+      end = void 0;
+  if (currPage < vault + 1) {
+    start = 1;
+    end = 2 * vault + 1;
+  } else if (currPage > maxPages - vault) {
+    start = maxPages - (2 * vault + 1);
+    end = maxPages;
+  } else {
+    start = currPage - vault;
+    end = currPage + vault;
   }
+  console.log(start, end);
+
+  for (var i = start; i <= end; i++) {
+    arr.push(i);
+  }
+
+  return arr;
+}
+
+function addPagingScroll(attr) {
+  if (!(attr instanceof Object) && !attr['page']) return;
+
+  var currentPage = attr['page'];
+  var arr = generateRange(currentPage, attr['totalPages']);
+
+  var pageNumbers = document.querySelector('.result-scroll');
+  pageNumbers.innerHTML = '';
+  var elements = document.createDocumentFragment();
+
+  var _loop = function _loop(elem) {
+    var li = document.createElement('li');
+    li.innerHTML = elem;
+    li.addEventListener('click', function () {
+      loadTopArtistsOnPage(elem);
+    });
+    if (currentPage == elem) {
+      li.classList.add('current');
+    }
+    elements.appendChild(li);
+  };
+
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = arr[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      var elem = _step.value;
+
+      _loop(elem);
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
+      }
+    }
+  }
+
+  pageNumbers.appendChild(elements);
+}
+
+function addImage(artist, root) {
+  var image = document.createElement('img');
+  image.src = artist['image'][2]['#text'];
+  image.title = artist.name;
+  image.classList.add('element');
+  root.appendChild(image);
+  return image;
+}
+
+function parseResponseOfTopArtists(response, type) {
+  if (!type instanceof _loader2.default) return;
+
+  var resultBox = document.querySelector('.result-box');
+  resultBox.innerHTML = '';
+  var elements = document.createDocumentFragment();
+  var resultFromResponse = JSON.parse(response.responseText);
+
+  var artistsFromJSON = resultFromResponse['artists'];
+  var length = artistsFromJSON['artist']['length'];
+
+  for (var i = 0; i < length; i++) {
+    var artist = artistsFromJSON['artist'][i];
+    addImage(artist, elements).addEventListener('click', function (event) {
+      alert(event.currentTarget.title);
+    });
+  }
+  resultBox.appendChild(elements);
+  var pageAttr = artistsFromJSON['@attr'];
+  addPagingScroll(pageAttr, resultBox);
+}
+
+function loadTopArtistsOnPage(number) {
+  if ((typeof number === 'undefined' ? 'undefined' : _typeof(number)) === 'object') {
+    number = 1;
+  }
+  number = number || 1;
+  addSpinner();
+  var loader = new _artistList2.default();
+  var response = loader.load(number);
   response.then(function (res) {
-    return parseResponse(res, loader);
+    return parseResponseOfTopArtists(res, loader);
   });
 }
 
-function parseResponse(response, type) {
-  if (!type instanceof _loader2.default) return;
-  alert(response.responseText);
+function addSpinner() {
+  var resultBox = document.querySelector('.result-box');
+  resultBox.innerHTML = '';
+  var spinner = document.createElement('div');
+  spinner.classList.add('spinner');
+  resultBox.appendChild(spinner);
 }
 
-var search = document.getElementById('startSearch');
-search.addEventListener('click', searchResult);
+window.onload = loadTopArtistsOnPage;
 
 /***/ }),
 /* 6 */
@@ -355,9 +453,9 @@ search.addEventListener('click', searchResult);
 
 __webpack_require__(0);
 __webpack_require__(5);
-__webpack_require__(1);
 __webpack_require__(2);
 __webpack_require__(3);
+__webpack_require__(1);
 module.exports = __webpack_require__(4);
 
 

@@ -1,11 +1,12 @@
 'use strict';
-var path = require("path");
-var webpack = require("webpack");
+const path = require("path");
+const webpack = require("webpack");
 
 module.exports = {
   context: path.resolve(__dirname, 'last-fm-api-task/js'),
+
   entry : ["./classes/loader",
-    "./handler",
+    "./handlers/mainHandler",
     "./classes/albumInfo",
     "./classes/artistInfo",
     "./classes/artistList",
@@ -15,13 +16,13 @@ module.exports = {
     path: path.resolve(__dirname, 'last-fm-api-task/build'),
     publicPath: "/",
     filename: "bundle.js",
-    //sourceMapFilename: '[name].map',
     library: "[name]"
   },
 
-  watch: process.env.NODE_ENV === 'development',
+  watch: true,
 
   devtool: "source-map",
+
   watchOptions: {
     aggregateTimeout: 100,
     poll: 1000
@@ -34,13 +35,10 @@ module.exports = {
   },
 
   plugins: [
-    /*new webpack.optimize.CommonsChunkPlugin({
-      name: 'common'
-    })*/
     new webpack.NodeEnvironmentPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify('production')
+      'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
     })
   ],
 
