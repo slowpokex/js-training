@@ -1,8 +1,8 @@
 'use strict';
-import Loader from '../classes/loader';
 import ArtistList from '../classes/artistList';
+import * as artistHandler from '../handlers/artistHandler';
 
-export function generateRange(currPage, maxPages) {
+function generateRangeForPagination(currPage, maxPages) {
   let arr = [];
 
   currPage = Number.parseInt(currPage);
@@ -20,7 +20,6 @@ export function generateRange(currPage, maxPages) {
     start = currPage - vault;
     end = currPage + vault;
   }
-  console.log(start, end);
 
   for (let i = start; i <= end; i++) {
     arr.push(i);
@@ -29,17 +28,22 @@ export function generateRange(currPage, maxPages) {
   return arr;
 }
 
-function addPagingScroll(attr) {
-  if (!(attr instanceof Object) && !attr['page']) return;
+export function clearPagingScroll() {
+  const pageNumbers = document.querySelector('.result-scroll');
+  if (pageNumbers !== null) {
+    pageNumbers.style.display = 'none';
+  }
+}
 
-  const currentPage = attr['page'];
-  let arr = generateRange(currentPage, attr['totalPages']);
+export function showPagingScroll() {
+  const pageNumbers = document.querySelector('.result-scroll');
+  if (pageNumbers !== null) {
+    pageNumbers.style.display = 'block';
+  }
+}
 
-  let pageNumbers = document.querySelector('.result-scroll');
-  pageNumbers.innerHTML = '';
-  let elements = document.createDocumentFragment();
-
-  for (let elem of arr) {
+export function addPagingScroll(attr) {
+  function addNumberPage(elem, fragment) {
     let li = document.createElement('li');
     li.innerHTML = elem;
     li.addEventListener('click', function () {
@@ -48,52 +52,77 @@ function addPagingScroll(attr) {
     if (currentPage == elem) {
       li.classList.add('current');
     }
-    elements.appendChild(li);
+    fragment.appendChild(li);
   }
-  pageNumbers.appendChild(elements);
+
+  if (!(attr instanceof Object) && !attr['page']) return;
+  showPagingScroll();
+  const currentPage = attr['page'];
+  const totalPages = attr['totalPages'];
+
+  const arr = generateRangeForPagination(currentPage, totalPages);
+  const pageNumbers = document.querySelector('.result-scroll');
+  pageNumbers.innerHTML = '';
+
+  const fragment = document.createDocumentFragment();
+
+  arr.forEach(function (elem) {
+    addNumberPage(elem, fragment)
+  });
+
+  pageNumbers.appendChild(fragment);
 }
 
-function addImage(artist, root) {
+export function addArtistImage(artist, root, clazz) {
   let image = document.createElement('img');
   image.src = artist['image'][2]['#text'];
   image.title = artist.name;
-  image.classList.add('element');
+  image.className = clazz;
   root.appendChild(image);
   return image;
 }
 
-function parseResponseOfTopArtists(response, type) {
-  if (!type instanceof Loader) return;
+function handleResponseOfTopArtists(response) {
+  if (!(response instanceof Object)) return;
 
   let resultBox = document.querySelector('.result-box');
   resultBox.innerHTML = '';
   let elements = document.createDocumentFragment();
-  let resultFromResponse = JSON.parse(response.responseText);
 
-  const artistsFromJSON = resultFromResponse['artists'];
-  let length = artistsFromJSON['artist']['length'];
+  const artists = response['artists']['artist'];
 
-  for (let i = 0; i < length; i++) {
-    let artist = artistsFromJSON['artist'][i];
-    addImage(artist, elements).addEventListener('click', function (event) {
-      alert(event.currentTarget.title);
+  artists.forEach(function (artist) {
+    addArtistImage(artist, elements, 'element').addEventListener('click', function (event) {
+      artistHandler.loadArtistOnMainPage(event.currentTarget.title);
     });
-  }
+  });
+
+  let pageAttr = response['artists']['@attr'];
+  addPagingScroll(pageAttr, elements);
   resultBox.appendChild(elements);
-  let pageAttr = artistsFromJSON['@attr'];
-  addPagingScroll(pageAttr, resultBox);
 }
 
-function loadTopArtistsOnPage(number) {
+export function addHead(head) {
+  document.querySelector('.head').innerHTML = head;
+}
+
+function loadTopArtistsOnPage(number = 1) {
   if (typeof (number) === 'object') {
     number = 1;
   }
-  number = number || 1;
+
+  clearLikeBox();
+  addHead('Top artists:');
   addSpinner();
+
   let loader = new ArtistList();
   let response = loader.load(number);
+
   response
-    .then(res => parseResponseOfTopArtists(res, loader));
+    .then(res => {
+      const responseObj = JSON.parse(res.responseText);
+      handleResponseOfTopArtists(responseObj)
+    });
 }
 
 export function addSpinner() {
@@ -103,5 +132,31 @@ export function addSpinner() {
   spinner.classList.add('spinner');
   resultBox.appendChild(spinner);
 }
+
+export function addLikes(likes) {
+  const likeBox = document.querySelector('.stars');
+  likeBox.style.display = 'block';
+  likeBox.innerHTML = likes + ' likes';
+}
+
+export function clearLikeBox() {
+  const likeBox = document.querySelector('.stars');
+  likeBox.style.display = 'none';
+  likeBox.innerHTML = '';
+}
+
+export function cleanContentForArtist() {
+  const scroll = document.querySelector('.result-scroll');
+  const current = document.querySelector('.result-scroll .current');
+  if (scroll !== null) {
+    scroll.innerHTML = '';
+    current.innerHTML = 'Back to list';
+    current.className = 'back-to-result';
+    scroll.appendChild(current);
+  }
+}
+
+let label = document.getElementById('label');
+label.addEventListener('click', loadTopArtistsOnPage);
 
 window.onload = loadTopArtistsOnPage;

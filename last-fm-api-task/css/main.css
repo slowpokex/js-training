@@ -24,11 +24,16 @@
 	src: url(../fonts/ProximaNova-BoldIt.otf) format("opentype");
 }
 
-body {
+body{
+	background: #d8d8d8;
+}
+
+.wrapper {
 	font-family: ProximaNova, sans-serif;
 	font-size: large;
 	font-weight: normal;
-	background: #d8d8d8;
+	width: 1200px;
+	margin: 0 auto;
 }
 
 .search-box {
@@ -83,12 +88,20 @@ body {
 	font-size: 16px;
 }
 
-span {
+.head {
 	position: relative;
-	top: 10px;
 	left: 50px;
 	font-style: italic;
 	font-size: 32px;
+	margin: 30px;
+	display: inline-block;
+}
+
+.result-box > .head {
+	font-style: italic;
+	font-size: 32px;
+	margin: 30px;
+	display: block;
 }
 
 .spinner {
@@ -120,7 +133,7 @@ span {
 	box-sizing: border-box;
 	width: 100%;
 	padding: 0 50px 50px;
-	text-align: center;
+	min-height: 350px;
 }
 
 .result-box .element {
@@ -129,7 +142,39 @@ span {
 	border-radius: 10%;
 	margin: 10px;
 	display: inline-block;
-	text-align: center;
+}
+
+.result-box > .artist-box {
+	margin: 0 auto;
+}
+
+.stars {
+	float: right;
+	position: relative;
+	right: 10%;
+	top: 40px;
+	font-size: 20px;
+	display: none;
+}
+
+.result-box .artist {
+	width: 250px;
+	height: 250px;
+	border-radius: 10%;
+	margin: 10px;
+	display: block;
+	float: left;
+}
+
+.result-box .info-box {
+	width: 70%;
+	height: 250px;
+	margin: 10px;
+	padding: 20px;
+	box-sizing: border-box;
+	display: block;
+	overflow: auto;
+	text-align: justify;
 }
 
 .result-box .element:hover {
@@ -144,6 +189,7 @@ span {
 	list-style: none;
 	position: relative;
 	left: 35%;
+	width: 30%;
 }
 
 .result-scroll > li {
@@ -163,6 +209,12 @@ span {
 	background-color: #0060b2;
 }
 
+.result-scroll > li.back-to-result {
+	width: 200px;
+	border-radius: 0;
+	text-align: center;
+}
+
 .result-scroll > li:hover {
 	transition-property: background-color;
 	transition-duration: 0.5s;
@@ -172,30 +224,19 @@ span {
 }
 
 .footer {
-	position: fixed;
+	//position: fixed;
 	width: 100%;
 	height: 50px;
 	bottom: 0;
 	left: 0;
+	padding-top: 10px;
 	background-color: black;
+	text-align: center;
 }
 
 .footer > span {
-	position: absolute;
-	top: 40%;
 	color: azure;
 	font-family: ProximaNova, sans-serif;
 	font-style: italic;
-	font-size: 16px;
-	margin-left: 40px;
-}
-
-@media (max-width: 780px) {
-	.search-box {
-		position: relative;
-		width: 100%;
-		top: 0;
-		left: 0;
-		border-radius: 0;
-	}
+	font-size: 18px;
 }

@@ -10,12 +10,6 @@ export default function ArtistList() {
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
   };
-
-  this.parseToObj = function (response) {
-    let result = {};
-    let draft = JSON.parse(response);
-    return result;
-  }
 }
 
-Loader.prototype.inherits(Loader, ArtistList);
+Loader.prototype.inherits(ArtistList);

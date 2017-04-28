@@ -1,13 +1,12 @@
 {
   "name": "js-training",
   "version": "1.0.0",
+
   "devDependencies": {
     "babel-cli": "^6.0.0",
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
-    "babel-preset-env": "^1.3.3",
-    "lodash": "^4.17.4",
-    "npm-install-webpack-plugin": "^4.0.4"
+    "babel-preset-env": "^1.3.3"
   },
   "dependencies": {
     "babel-preset-env": "^1.4.0",
@@ -16,6 +15,6 @@
   },
   "scripts": {
     "prestart": "webpack",
-    "start": "static &"
+    "start": "node server.js"
   }
 }

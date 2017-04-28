@@ -2,6 +2,7 @@
 import Loader from './loader';
 
 export default function AlbumInfo() {
+
   this.load = function (artist, album) {
     const method = 'album.getinfo';
     const methodQuery = this.__proto__.returnMethodQuery(method);
@@ -11,11 +12,6 @@ export default function AlbumInfo() {
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
   }
-
-  this.parseToObj = function (response) {
-    let result = {};
-    return result;
-  }
 }
 
-Loader.prototype.inherits(Loader, AlbumInfo);
+Loader.prototype.inherits(AlbumInfo);

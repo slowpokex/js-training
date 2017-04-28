@@ -39,12 +39,10 @@ PROTO.returnAlbumParameter = function (value) {
   return Loader.prototype.ALBUM_KEY + value;
 };
 
-PROTO.inherits = function (parent, child) {
-  child.prototype = Object.create(parent.prototype);
+PROTO.inherits = function (child) {
+  child.prototype = Object.create(PROTO);
   child.prototype.constructor = child;
 };
-
-PROTO.parseToObj = function (response) {};
 
 PROTO.load = function (queryParams) {
   return new Promise(function (resolve, reject) {

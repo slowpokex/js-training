@@ -10,11 +10,6 @@ export default function ArtistInfo() {
     console.log(fullQuery);
     return this.__proto__.load(fullQuery);
   };
-
-  this.parseToObj = function (response) {
-    let result = {};
-    return result;
-  };
 }
 
-Loader.prototype.inherits(Loader, ArtistInfo);
+Loader.prototype.inherits(ArtistInfo);
