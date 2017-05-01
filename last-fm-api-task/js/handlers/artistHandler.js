@@ -2,69 +2,94 @@
 import * as mainHandler from '../handlers/mainHandler';
 import ArtistInfo from '../classes/artistInfo';
 import AlbumsList from '../classes/albumsList';
+import * as albumHandler from '../handlers/albumHandler';
+import route from '../handlers/routing';
 
 function addInfo(artist, resultBox) {
-  let bio = artist['bio']['content'];
-  let text = document.createElement('div');
+  const bio = artist['bio']['content'];
+  const text = document.createElement('div');
   text.classList.add('info-box');
   text.innerHTML = bio;
   resultBox.appendChild(text);
 }
 
-function addAlbumsOnArtistPage(response, resultBox) {
+function addAlbumsOnPage(response, resultBox) {
 
   function addHeadOfAlbums(fragment) {
-    let albumHead = document.createElement('span');
-    albumHead.classList.add('head');
-    albumHead.innerHTML = 'Top albums:<br/>';
+    const albumHead = document.createElement('span');
+    if (!fragment) return;
+    albumHead.className = 'head';
+    albumHead.innerHTML = 'Top albums:';
     fragment.appendChild(albumHead);
   }
 
   function addAlbumInPage(album, fragment) {
-    let name = album['name'];
-    let imageSrc = album['image'][2]['#text'];
-    let img = document.createElement('img');
-    img.classList.add('element');
+    if (!album || !fragment) return;
+
+    const name = album['name'];
+    const imageSrc = album['image'][2]['#text'];
+    const img = document.createElement('img');
+
+    img.className = 'element';
     img.src = imageSrc;
     img.title = name;
 
-    if (img.title === '(null)') return;
+    img.onerror = function () {
+      console.error('Error loading image ', this);
+      this.style.display = 'none';
+    };
     
     fragment.appendChild(img);
     return img;
   }
 
-  let fragment  = document.createDocumentFragment();
+  const fragment  = document.createDocumentFragment();
   addHeadOfAlbums(fragment);
   const albums = response['topalbums']['album'];
 
+  if (!albums) return;
+
   albums.forEach(function (album) {
-    addAlbumInPage(album, fragment);
+    const albumImage = addAlbumInPage(album, fragment);
+
+    albumImage.onclick = function () {
+      const artistName = album['artist']['name'];
+      const albumName = album['name'];
+      albumHandler.loadAlbumOnMainPage(albumName, artistName);
+      route.addRouteChild('Back to artist', () => {
+        loadArtistOnMainPage(artistName);
+        route.deleteLastRouteChild()});
+    };
   });
 
   resultBox.appendChild(fragment);
 }
 
 function addAlbums(artist, resultBox) {
+  if (!artist || !resultBox) return;
+
   const artistName = artist['name'];
-  let albumInfo = new AlbumsList();
+  const albumInfo = new AlbumsList();
   const result = albumInfo.load(artistName);
+
   result.then(res => {
     const responseObj = JSON.parse(res.responseText);
-    addAlbumsOnArtistPage(responseObj, resultBox);
+    addAlbumsOnPage(responseObj, resultBox);
   });
 }
 
 function addArtistToMainPage(response) {
-  const resultBox = document.querySelector('.result-box');
+  if (!response) return;
+  const resultBox = mainHandler.getResultBox();
   resultBox.innerHTML = '';
 
   const artistBox = document.createElement('div');
   artistBox.className = 'artist-box';
   resultBox.appendChild(artistBox);
+
   const artist = response['artist'];
 
-  mainHandler.addArtistImage(artist, artistBox, 'artist');
+  mainHandler.addItemImage(artist, artistBox, 'artist');
   mainHandler.addLikes(artist["stats"]["listeners"]);
   addInfo(artist, artistBox);
   addAlbums(artist, resultBox);
@@ -73,7 +98,6 @@ function addArtistToMainPage(response) {
 export function loadArtistOnMainPage(name) {
   mainHandler.addHead(name);
   mainHandler.addSpinner();
-  mainHandler.cleanContentForArtist();
   const artist = new ArtistInfo();
   const result = artist.load(name);
 

@@ -22,7 +22,7 @@ module.exports = {
     library: "[name]"
   },
 
-  //watch: true,
+  watch: true,
 
   devtool: "source-map",
 
@@ -33,7 +33,6 @@ module.exports = {
 
   resolve: {
     modules: ["node_modules"],
-    descriptionFiles: ["package.json"],
     extensions: [".js", ".json"]
   },
 
@@ -60,7 +59,6 @@ module.exports = {
           //language=JSRegexp
           test: /\.js$/,
           //language=JSRegexp
-          //exclude: /(node_modules|bower_components)/,
           include: path.resolve(__dirname, 'last-fm-api-task/build'),
           loader: "babel-loader"
         }

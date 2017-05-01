@@ -98,6 +98,8 @@ body{
 }
 
 .result-box > .head {
+	position: relative;
+	left: 0;
 	font-style: italic;
 	font-size: 32px;
 	margin: 30px;
@@ -166,6 +168,25 @@ body{
 	float: left;
 }
 
+.result-box > .track {
+	display: block;
+	height: 100%;
+	width: 50px;
+	margin: 15px;
+	padding: 5px;
+	border-radius: 15px;
+}
+
+.result-box > .track:hover {
+	background-color: #0081b2;
+	transition-property: box-shadow;
+	transition-duration: 0.5s;
+	-webkit-box-shadow: 0 0 9px 9px rgba(39, 33, 31, 0.75);
+	-moz-box-shadow: 0 0 9px 9px rgba(39, 33, 31, 0.75);
+	box-shadow: 0 0 9px 9px rgba(39, 33, 31, 0.75);
+	color: azure;
+}
+
 .result-box .info-box {
 	width: 70%;
 	height: 250px;
@@ -177,6 +198,12 @@ body{
 	text-align: justify;
 }
 
+.info-box > .album-info {
+	list-style: none;
+	font-size: 24px;
+	font-style: italic;
+}
+
 .result-box .element:hover {
 	transition-property: box-shadow;
 	transition-duration: 0.5s;
@@ -186,13 +213,17 @@ body{
 }
 
 .result-scroll {
-	list-style: none;
 	position: relative;
 	left: 35%;
-	width: 30%;
+	list-style: none;
+	overflow: auto;
 }
 
-.result-scroll > li {
+#scrollWithWeight {
+	left: 0;
+}
+
+.result-scroll > div {
 	 display: inline-block;
 	 margin: 5px;
 	 border-radius: 50%;
@@ -205,17 +236,20 @@ body{
 	 font-weight: bold;
  }
 
-.result-scroll > li.current {
+.result-scroll > .current {
 	background-color: #0060b2;
 }
 
-.result-scroll > li.back-to-result {
+.result-scroll > .back-child {
+	display: inline-block;
+	left: 0;
+	margin: 20px auto;
 	width: 200px;
 	border-radius: 0;
 	text-align: center;
 }
 
-.result-scroll > li:hover {
+.result-scroll > div:hover {
 	transition-property: background-color;
 	transition-duration: 0.5s;
 	border-color: #ab0914;
@@ -224,7 +258,6 @@ body{
 }
 
 .footer {
-	//position: fixed;
 	width: 100%;
 	height: 50px;
 	bottom: 0;
