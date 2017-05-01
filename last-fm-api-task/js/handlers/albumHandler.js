@@ -35,10 +35,25 @@ function addTracksOnPage(album, resultBox) {
     fragment.appendChild(albumHead);
   }
 
+  function addTrackOnPage(track, fragment) {
+    if (!track || !fragment) return;
+    const trackBox = document.createElement('div');
+    trackBox.className = 'track';
+
+    fragment.appendChild(trackBox);
+
+  }
+
   const fragment  = document.createDocumentFragment();
   addHeadOfTracks(fragment);
 
   const tracks = album['tracks']['track'];
+
+
+
+  tracks.forEach((track) => {
+    addTrackOnPage(track, fragment)
+  });
 
   resultBox.appendChild(fragment);
 }
