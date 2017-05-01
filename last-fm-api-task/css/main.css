@@ -180,6 +180,7 @@ body{
 	background-color: #0081b2;
 	transition-property: box-shadow;
 	transition-duration: 0.5s;
+
 	-webkit-box-shadow: 0 0 9px 9px rgba(39, 33, 31, 0.75);
 	-moz-box-shadow: 0 0 9px 9px rgba(39, 33, 31, 0.75);
 	box-shadow: 0 0 9px 9px rgba(39, 33, 31, 0.75);
