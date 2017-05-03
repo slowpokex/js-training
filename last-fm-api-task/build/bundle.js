@@ -656,7 +656,7 @@ function addAlbumInfoToInfobox(album, albumBox) {
     <ul class="album-info">
       <li>Artist : ${album['artist']}</li>
       <li>Year: 42(The meaning of life)</li>
-      <li>Url: ${album['url']}}</li>
+      <li>Url: ${album['url']}</li>
       <li>Genre: ${getGenresFromAlbum(album)}</li>
     </ul>`;
 
@@ -665,6 +665,7 @@ function addAlbumInfoToInfobox(album, albumBox) {
 
 function addTracksOnPage(album, resultBox) {
   if (!album || !resultBox) return;
+
   function addHeadOfTracks(fragment) {
     if (!fragment) return;
     const albumHead = document.createElement('span');
@@ -673,10 +674,23 @@ function addTracksOnPage(album, resultBox) {
     fragment.appendChild(albumHead);
   }
 
+  function addTrackOnPage(track, fragment) {
+    if (!track || !fragment) return;
+    const trackBox = document.createElement('a');
+    trackBox.className = 'track';
+    trackBox.href = track['url'];
+    trackBox.innerHTML = `${track['artist']['name']} - ${track['name']}`;
+    fragment.appendChild(trackBox);
+  }
+
   const fragment  = document.createDocumentFragment();
   addHeadOfTracks(fragment);
 
   const tracks = album['tracks']['track'];
+
+  tracks.forEach((track) => {
+    addTrackOnPage(track, fragment)
+  });
 
   resultBox.appendChild(fragment);
 }

@@ -1,6 +1,7 @@
 'use strict';
 const path = require("path");
 const webpack = require("webpack");
+const typescript = require('awesome-typescript-loader');
 
 module.exports = {
   context: path.resolve(__dirname, 'last-fm-api-task/js'),
@@ -33,7 +34,7 @@ module.exports = {
 
   resolve: {
     modules: ["node_modules"],
-    extensions: [".js", ".json"]
+    extensions: ['.ts', '.tsx', '.js', '.jsx']
   },
 
   plugins: [
@@ -45,7 +46,9 @@ module.exports = {
     new webpack.optimize.CommonsChunkPlugin({
       name: 'commons',
       filename: 'commons.js'
-    })
+    }),
+
+    new typescript.CheckerPlugin()
   ],
 
   resolveLoader: {
@@ -61,6 +64,10 @@ module.exports = {
           //language=JSRegexp
           include: path.resolve(__dirname, 'last-fm-api-task/build'),
           loader: "babel-loader"
+        },
+        {
+          test: /\.tsx?$/,
+          loader: 'awesome-typescript-loader'
         }
       ]
     }
